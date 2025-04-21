@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f98c58d89b62b99b95ed2553dd77f506 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                bottom: 50px; right: 50px; width: 150px; height: 120px; 
+                border:2px solid grey; z-index:9999; 
+                background-color:white; padding: 10px;
+                font-size: 14px;">
+     <p><b>Legend</b></p>
+     <p>Solid lines: Normal Itinerary</p>
+     <p>Dashed lines: Fast Travel Itinerary</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_f98c58d89b62b99b95ed2553dd77f506" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f98c58d89b62b99b95ed2553dd77f506 = L.map(
+                "map_f98c58d89b62b99b95ed2553dd77f506",
+                {
+                    center: [20.5937, 78.9629],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 5,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_884756c98341a4c3f99b2b69370c5db5 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var marker_ca8b0d33aae3293b0893e8d25ddbda0f = L.marker(
+                [19.076, 72.8777],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_983dac91671082ba52979d86b8cf2732 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_ca8b0d33aae3293b0893e8d25ddbda0f.setIcon(icon_983dac91671082ba52979d86b8cf2732);
+        
+    
+        var popup_0b1bee46df1c3a2208f81947185dc692 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6965e76eec8bc3133cb95245c094e035 = $(`<div id="html_6965e76eec8bc3133cb95245c094e035" style="width: 100.0%; height: 100.0%;"><b>Mumbai</b><br><br>Visits:<br>Rahul Sharma (Normal): 2022-05-01 14:00 - 2022-05-04 10:00<br>Rahul Sharma (Fast Travel): 2022-02-20 10:00 - 2022-02-20 19:00</div>`)[0];
+                popup_0b1bee46df1c3a2208f81947185dc692.setContent(html_6965e76eec8bc3133cb95245c094e035);
+            
+        
+
+        marker_ca8b0d33aae3293b0893e8d25ddbda0f.bindPopup(popup_0b1bee46df1c3a2208f81947185dc692)
+        ;
+
+        
+    
+    
+            var marker_e7f3256fb9f23e701aaad23a3539393d = L.marker(
+                [28.7041, 77.1025],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_c044cbca5fb5488231905e95d3124dbe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e7f3256fb9f23e701aaad23a3539393d.setIcon(icon_c044cbca5fb5488231905e95d3124dbe);
+        
+    
+        var popup_deabf9f43baf4d398702a59276167080 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b3a48856f64ceb9f47f7df04e6d95bb3 = $(`<div id="html_b3a48856f64ceb9f47f7df04e6d95bb3" style="width: 100.0%; height: 100.0%;"><b>Delhi</b><br><br>Visits:<br>Rahul Sharma (Normal): 2022-05-10 15:00 - 2022-05-13 20:00<br>Rahul Sharma (Fast Travel): 2022-02-21 10:00 - 2022-02-21 19:00</div>`)[0];
+                popup_deabf9f43baf4d398702a59276167080.setContent(html_b3a48856f64ceb9f47f7df04e6d95bb3);
+            
+        
+
+        marker_e7f3256fb9f23e701aaad23a3539393d.bindPopup(popup_deabf9f43baf4d398702a59276167080)
+        ;
+
+        
+    
+    
+            var marker_da1b47a3022764b15df1e68fdf7b9ef4 = L.marker(
+                [12.9716, 77.5946],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_5cdd501a6822308ca5e8fa8590677a26 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_da1b47a3022764b15df1e68fdf7b9ef4.setIcon(icon_5cdd501a6822308ca5e8fa8590677a26);
+        
+    
+        var popup_867f2ff784eab8d79c4d0e1dbe6fca52 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_54c039e06249b429bcfd47b668ecf9b7 = $(`<div id="html_54c039e06249b429bcfd47b668ecf9b7" style="width: 100.0%; height: 100.0%;"><b>Bangalore</b><br><br>Visits:<br>Rahul Sharma (Normal): 2022-05-07 18:00 - 2022-05-10 09:00<br>Rahul Sharma (Fast Travel): 2022-02-22 10:00 - 2022-02-22 19:00</div>`)[0];
+                popup_867f2ff784eab8d79c4d0e1dbe6fca52.setContent(html_54c039e06249b429bcfd47b668ecf9b7);
+            
+        
+
+        marker_da1b47a3022764b15df1e68fdf7b9ef4.bindPopup(popup_867f2ff784eab8d79c4d0e1dbe6fca52)
+        ;
+
+        
+    
+    
+            var marker_b5a778516ddb26747d54794e3d3fb366 = L.marker(
+                [15.2993, 74.124],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_922afc5c2bea9e426db077a124305d35 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b5a778516ddb26747d54794e3d3fb366.setIcon(icon_922afc5c2bea9e426db077a124305d35);
+        
+    
+        var popup_fc6989a1731fa4e172a7e68d76ce781e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_249c302ecb5091b252f3516fc0d49bb1 = $(`<div id="html_249c302ecb5091b252f3516fc0d49bb1" style="width: 100.0%; height: 100.0%;"><b>Goa</b><br><br>Visits:<br>Rahul Sharma (Normal): 2022-05-04 16:00 - 2022-05-07 11:00<br>Rahul Sharma (Fast Travel): 2022-02-23 10:00 - 2022-02-23 19:00</div>`)[0];
+                popup_fc6989a1731fa4e172a7e68d76ce781e.setContent(html_249c302ecb5091b252f3516fc0d49bb1);
+            
+        
+
+        marker_b5a778516ddb26747d54794e3d3fb366.bindPopup(popup_fc6989a1731fa4e172a7e68d76ce781e)
+        ;
+
+        
+    
+    
+            var marker_4c9b95163e7245125b73f4bc54babecc = L.marker(
+                [26.9124, 75.7873],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_7cf0f7504fc99390a42485faad7ee436 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_4c9b95163e7245125b73f4bc54babecc.setIcon(icon_7cf0f7504fc99390a42485faad7ee436);
+        
+    
+        var popup_97079c379b6ba8d9591fc19f26791e25 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8c639040e4cd9b58a0738f45c7f9cf25 = $(`<div id="html_8c639040e4cd9b58a0738f45c7f9cf25" style="width: 100.0%; height: 100.0%;"><b>Jaipur</b><br></div>`)[0];
+                popup_97079c379b6ba8d9591fc19f26791e25.setContent(html_8c639040e4cd9b58a0738f45c7f9cf25);
+            
+        
+
+        marker_4c9b95163e7245125b73f4bc54babecc.bindPopup(popup_97079c379b6ba8d9591fc19f26791e25)
+        ;
+
+        
+    
+    
+            var marker_af3e975ded170c2688d285d1e22bd12a = L.marker(
+                [10.8505, 76.2711],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_5ce7c5495940dfaefee9fdf56f9f34e8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_af3e975ded170c2688d285d1e22bd12a.setIcon(icon_5ce7c5495940dfaefee9fdf56f9f34e8);
+        
+    
+        var popup_ed04539bdc0ad9abccb6175154f1ba66 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_db802ce0f7070cd8368fcd8e224daed3 = $(`<div id="html_db802ce0f7070cd8368fcd8e224daed3" style="width: 100.0%; height: 100.0%;"><b>Kerala</b><br></div>`)[0];
+                popup_ed04539bdc0ad9abccb6175154f1ba66.setContent(html_db802ce0f7070cd8368fcd8e224daed3);
+            
+        
+
+        marker_af3e975ded170c2688d285d1e22bd12a.bindPopup(popup_ed04539bdc0ad9abccb6175154f1ba66)
+        ;
+
+        
+    
+    
+            var marker_152526d2acb8fd5a76e2530e9dd3ab77 = L.marker(
+                [31.1048, 77.1734],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_8c24e17de51921f47cdf285f198aeccb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_152526d2acb8fd5a76e2530e9dd3ab77.setIcon(icon_8c24e17de51921f47cdf285f198aeccb);
+        
+    
+        var popup_5ecadf6aff036fd523e3ee30db9d75e3 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_74501b8f4281da0bf29aa86257c5ce19 = $(`<div id="html_74501b8f4281da0bf29aa86257c5ce19" style="width: 100.0%; height: 100.0%;"><b>Shimla</b><br></div>`)[0];
+                popup_5ecadf6aff036fd523e3ee30db9d75e3.setContent(html_74501b8f4281da0bf29aa86257c5ce19);
+            
+        
+
+        marker_152526d2acb8fd5a76e2530e9dd3ab77.bindPopup(popup_5ecadf6aff036fd523e3ee30db9d75e3)
+        ;
+
+        
+    
+    
+            var marker_12d56b14265898447da88606fea0c7e2 = L.marker(
+                [27.036, 88.2627],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_79b77526a051cc183d4930fc631c9293 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_12d56b14265898447da88606fea0c7e2.setIcon(icon_79b77526a051cc183d4930fc631c9293);
+        
+    
+        var popup_6c08f61e34961906507c7af9cb3d3bab = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0e0f8b0babd0abf2177c015f585d7472 = $(`<div id="html_0e0f8b0babd0abf2177c015f585d7472" style="width: 100.0%; height: 100.0%;"><b>Darjeeling</b><br></div>`)[0];
+                popup_6c08f61e34961906507c7af9cb3d3bab.setContent(html_0e0f8b0babd0abf2177c015f585d7472);
+            
+        
+
+        marker_12d56b14265898447da88606fea0c7e2.bindPopup(popup_6c08f61e34961906507c7af9cb3d3bab)
+        ;
+
+        
+    
+    
+            var marker_6db3f6124f4390a7d6070e277ab046b5 = L.marker(
+                [25.3176, 82.9739],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_d8fda47420cf174689f45a9954c0359f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_6db3f6124f4390a7d6070e277ab046b5.setIcon(icon_d8fda47420cf174689f45a9954c0359f);
+        
+    
+        var popup_bfd4c925d060aac853b0a4618bde001d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a3f4c81d362c8f57448e38f64ffe4e36 = $(`<div id="html_a3f4c81d362c8f57448e38f64ffe4e36" style="width: 100.0%; height: 100.0%;"><b>Varanasi</b><br></div>`)[0];
+                popup_bfd4c925d060aac853b0a4618bde001d.setContent(html_a3f4c81d362c8f57448e38f64ffe4e36);
+            
+        
+
+        marker_6db3f6124f4390a7d6070e277ab046b5.bindPopup(popup_bfd4c925d060aac853b0a4618bde001d)
+        ;
+
+        
+    
+    
+            var marker_b5ba1bcde6e1db1990f6b282e320a58f = L.marker(
+                [27.1767, 78.0081],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_ca84a3dd499f8221c11016658c0c74ed = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b5ba1bcde6e1db1990f6b282e320a58f.setIcon(icon_ca84a3dd499f8221c11016658c0c74ed);
+        
+    
+        var popup_3ba3fcf6bde4e4c3194d87afd25fabec = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_60deae2da314d0a0bba224ccd0cdce67 = $(`<div id="html_60deae2da314d0a0bba224ccd0cdce67" style="width: 100.0%; height: 100.0%;"><b>Agra</b><br></div>`)[0];
+                popup_3ba3fcf6bde4e4c3194d87afd25fabec.setContent(html_60deae2da314d0a0bba224ccd0cdce67);
+            
+        
+
+        marker_b5ba1bcde6e1db1990f6b282e320a58f.bindPopup(popup_3ba3fcf6bde4e4c3194d87afd25fabec)
+        ;
+
+        
+    
+    
+            var marker_8c4c61cbfaba6b8ee696f6eb1fac2a61 = L.marker(
+                [24.5854, 73.7125],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_4cda3de8ac4ae8f09965649c848d4b9f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_8c4c61cbfaba6b8ee696f6eb1fac2a61.setIcon(icon_4cda3de8ac4ae8f09965649c848d4b9f);
+        
+    
+        var popup_9bdef502c748d6bd0bedd9eca0ca4acb = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ed15d51ddf544f178a8f9c708b62257c = $(`<div id="html_ed15d51ddf544f178a8f9c708b62257c" style="width: 100.0%; height: 100.0%;"><b>Udaipur</b><br></div>`)[0];
+                popup_9bdef502c748d6bd0bedd9eca0ca4acb.setContent(html_ed15d51ddf544f178a8f9c708b62257c);
+            
+        
+
+        marker_8c4c61cbfaba6b8ee696f6eb1fac2a61.bindPopup(popup_9bdef502c748d6bd0bedd9eca0ca4acb)
+        ;
+
+        
+    
+    
+            var marker_53dc9f2270d76e6e6b34c1366d55fa0a = L.marker(
+                [30.0869, 78.2676],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_a84688488b13bf6ee7b82a2ad926e412 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_53dc9f2270d76e6e6b34c1366d55fa0a.setIcon(icon_a84688488b13bf6ee7b82a2ad926e412);
+        
+    
+        var popup_ac7f052841eb3ccafa16484c7bb280f5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_da600888c07a0c1431d8740e00bedd87 = $(`<div id="html_da600888c07a0c1431d8740e00bedd87" style="width: 100.0%; height: 100.0%;"><b>Rishikesh</b><br></div>`)[0];
+                popup_ac7f052841eb3ccafa16484c7bb280f5.setContent(html_da600888c07a0c1431d8740e00bedd87);
+            
+        
+
+        marker_53dc9f2270d76e6e6b34c1366d55fa0a.bindPopup(popup_ac7f052841eb3ccafa16484c7bb280f5)
+        ;
+
+        
+    
+    
+            var marker_94b8bc82d64a2d4878832a665bc696e4 = L.marker(
+                [12.2958, 76.6394],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_ee5ef51e38026f3f84c6f13a7e263aa7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_94b8bc82d64a2d4878832a665bc696e4.setIcon(icon_ee5ef51e38026f3f84c6f13a7e263aa7);
+        
+    
+        var popup_472dd6ed78ce4b1ba5f39ad426f2372f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_f5f79d49400b90a616c9b20ecfb96b6b = $(`<div id="html_f5f79d49400b90a616c9b20ecfb96b6b" style="width: 100.0%; height: 100.0%;"><b>Mysore</b><br></div>`)[0];
+                popup_472dd6ed78ce4b1ba5f39ad426f2372f.setContent(html_f5f79d49400b90a616c9b20ecfb96b6b);
+            
+        
+
+        marker_94b8bc82d64a2d4878832a665bc696e4.bindPopup(popup_472dd6ed78ce4b1ba5f39ad426f2372f)
+        ;
+
+        
+    
+    
+            var marker_a783c27fbdd49ea33f8abf5825da2101 = L.marker(
+                [11.9139, 79.8145],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_900d0260dcfb35895e1d9abb271cc4bc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a783c27fbdd49ea33f8abf5825da2101.setIcon(icon_900d0260dcfb35895e1d9abb271cc4bc);
+        
+    
+        var popup_c3fa8606407bfd3249dd61239c392e09 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ad5d9c2f49c31d0d985aff1cdb3cef18 = $(`<div id="html_ad5d9c2f49c31d0d985aff1cdb3cef18" style="width: 100.0%; height: 100.0%;"><b>Pondicherry</b><br></div>`)[0];
+                popup_c3fa8606407bfd3249dd61239c392e09.setContent(html_ad5d9c2f49c31d0d985aff1cdb3cef18);
+            
+        
+
+        marker_a783c27fbdd49ea33f8abf5825da2101.bindPopup(popup_c3fa8606407bfd3249dd61239c392e09)
+        ;
+
+        
+    
+    
+            var marker_cc3e7944e032547a142e64f95bd1d0af = L.marker(
+                [31.634, 74.8723],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var icon_09da2de615afc50c7100e73a24619af2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_cc3e7944e032547a142e64f95bd1d0af.setIcon(icon_09da2de615afc50c7100e73a24619af2);
+        
+    
+        var popup_ad71849b179d909bdff782bb822c4844 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e3832e0d3f84501e9736715dcdcf6107 = $(`<div id="html_e3832e0d3f84501e9736715dcdcf6107" style="width: 100.0%; height: 100.0%;"><b>Amritsar</b><br></div>`)[0];
+                popup_ad71849b179d909bdff782bb822c4844.setContent(html_e3832e0d3f84501e9736715dcdcf6107);
+            
+        
+
+        marker_cc3e7944e032547a142e64f95bd1d0af.bindPopup(popup_ad71849b179d909bdff782bb822c4844)
+        ;
+
+        
+    
+    
+            var poly_line_84181cb44c80df97960210afdbe46e30 = L.polyline(
+                [[19.076, 72.8777], [15.2993, 74.124]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_a285618f6c5cdde9c188e2e821366632 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ac5fcbdb6d4583873d3704694eca793f = $(`<div id="html_ac5fcbdb6d4583873d3704694eca793f" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Normal Journey</b><br>From: Mumbai<br>To: Goa<br>Departure: 2022-05-04 10:00<br>Arrival: 2022-05-04 16:00<br>Travel Time: 6.0 hours<br>Minimum Required Time: 1.0 hours</div>`)[0];
+                popup_a285618f6c5cdde9c188e2e821366632.setContent(html_ac5fcbdb6d4583873d3704694eca793f);
+            
+        
+
+        poly_line_84181cb44c80df97960210afdbe46e30.bindPopup(popup_a285618f6c5cdde9c188e2e821366632)
+        ;
+
+        
+    
+    
+            var marker_3b7c9527255de2c71208c9ed170c6490 = L.marker(
+                [17.18765, 73.50085],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_0feaf78a2743252d4bbfac567769f5c9 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: red;\"\u003e6.0h\u003c/div\u003e"});
+            marker_3b7c9527255de2c71208c9ed170c6490.setIcon(div_icon_0feaf78a2743252d4bbfac567769f5c9);
+        
+    
+        var popup_2af9fed4205fb51d09b50df224161418 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_fef06a3ee5be1cfa3687d5183e85b9af = $(`<div id="html_fef06a3ee5be1cfa3687d5183e85b9af" style="width: 100.0%; height: 100.0%;">Travel Time: 6.0 hours<br>Minimum Required: 1.0 hours</div>`)[0];
+                popup_2af9fed4205fb51d09b50df224161418.setContent(html_fef06a3ee5be1cfa3687d5183e85b9af);
+            
+        
+
+        marker_3b7c9527255de2c71208c9ed170c6490.bindPopup(popup_2af9fed4205fb51d09b50df224161418)
+        ;
+
+        
+    
+    
+            var poly_line_5665a1892de26ce51396d52756c01c94 = L.polyline(
+                [[15.2993, 74.124], [12.9716, 77.5946]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_bdf4b5d100b5be4555f465355db1e770 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0be86dfda58bc48386aa590c3366de89 = $(`<div id="html_0be86dfda58bc48386aa590c3366de89" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Normal Journey</b><br>From: Goa<br>To: Bangalore<br>Departure: 2022-05-07 11:00<br>Arrival: 2022-05-07 18:00<br>Travel Time: 7.0 hours<br>Minimum Required Time: 2.0 hours</div>`)[0];
+                popup_bdf4b5d100b5be4555f465355db1e770.setContent(html_0be86dfda58bc48386aa590c3366de89);
+            
+        
+
+        poly_line_5665a1892de26ce51396d52756c01c94.bindPopup(popup_bdf4b5d100b5be4555f465355db1e770)
+        ;
+
+        
+    
+    
+            var marker_fbe6317ef4b8d56ca5b53173ebd586ae = L.marker(
+                [14.13545, 75.85929999999999],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_df89bfd1ec1a1ac277300bfcdd2e7e5c = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: red;\"\u003e7.0h\u003c/div\u003e"});
+            marker_fbe6317ef4b8d56ca5b53173ebd586ae.setIcon(div_icon_df89bfd1ec1a1ac277300bfcdd2e7e5c);
+        
+    
+        var popup_0aabb34620443827a36734509c51a7ec = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_4e3cb096c02e0d1a497fe600e71d21fd = $(`<div id="html_4e3cb096c02e0d1a497fe600e71d21fd" style="width: 100.0%; height: 100.0%;">Travel Time: 7.0 hours<br>Minimum Required: 2.0 hours</div>`)[0];
+                popup_0aabb34620443827a36734509c51a7ec.setContent(html_4e3cb096c02e0d1a497fe600e71d21fd);
+            
+        
+
+        marker_fbe6317ef4b8d56ca5b53173ebd586ae.bindPopup(popup_0aabb34620443827a36734509c51a7ec)
+        ;
+
+        
+    
+    
+            var poly_line_7ca3732043950f60bafad5635bba601a = L.polyline(
+                [[12.9716, 77.5946], [28.7041, 77.1025]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_9b174725a4095929d8aaf6298175c0d1 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3becef936fa68f07b65c55fb08bd3991 = $(`<div id="html_3becef936fa68f07b65c55fb08bd3991" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Normal Journey</b><br>From: Bangalore<br>To: Delhi<br>Departure: 2022-05-10 09:00<br>Arrival: 2022-05-10 15:00<br>Travel Time: 6.0 hours<br>Minimum Required Time: 2.5 hours</div>`)[0];
+                popup_9b174725a4095929d8aaf6298175c0d1.setContent(html_3becef936fa68f07b65c55fb08bd3991);
+            
+        
+
+        poly_line_7ca3732043950f60bafad5635bba601a.bindPopup(popup_9b174725a4095929d8aaf6298175c0d1)
+        ;
+
+        
+    
+    
+            var marker_4c4eb975b4fc5a1c9386e14e082e2604 = L.marker(
+                [20.83785, 77.34855],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_8e828a805ab2b14744431b420e35cb51 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: red;\"\u003e6.0h\u003c/div\u003e"});
+            marker_4c4eb975b4fc5a1c9386e14e082e2604.setIcon(div_icon_8e828a805ab2b14744431b420e35cb51);
+        
+    
+        var popup_75a4e7cc37615ecc678b013180123aad = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_f3cdb34d2b9547e53463b64df89d0167 = $(`<div id="html_f3cdb34d2b9547e53463b64df89d0167" style="width: 100.0%; height: 100.0%;">Travel Time: 6.0 hours<br>Minimum Required: 2.5 hours</div>`)[0];
+                popup_75a4e7cc37615ecc678b013180123aad.setContent(html_f3cdb34d2b9547e53463b64df89d0167);
+            
+        
+
+        marker_4c4eb975b4fc5a1c9386e14e082e2604.bindPopup(popup_75a4e7cc37615ecc678b013180123aad)
+        ;
+
+        
+    
+    
+            var poly_line_9e061bf0e65d47462ff31d5c113f92f5 = L.polyline(
+                [[19.076, 72.8777], [28.7041, 77.1025]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_930878a95a46a5dc16bbf9117a386008 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0b7ffd9a3ed1c984721c1964b9e34637 = $(`<div id="html_0b7ffd9a3ed1c984721c1964b9e34637" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Fast Travel Journey</b><br>From: Mumbai<br>To: Delhi<br>Departure: 2022-02-20 19:00<br>Arrival: 2022-02-21 10:00<br>Travel Time: 15.0 hours<br>Minimum Required Time: 2.0 hours</div>`)[0];
+                popup_930878a95a46a5dc16bbf9117a386008.setContent(html_0b7ffd9a3ed1c984721c1964b9e34637);
+            
+        
+
+        poly_line_9e061bf0e65d47462ff31d5c113f92f5.bindPopup(popup_930878a95a46a5dc16bbf9117a386008)
+        ;
+
+        
+    
+    
+            var marker_bef359e3579b810ea74233e0529ec35c = L.marker(
+                [23.890050000000002, 74.99010000000001],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_dce162c567204b0613e5325205eb23da = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: blue;\"\u003e15.0h\u003c/div\u003e"});
+            marker_bef359e3579b810ea74233e0529ec35c.setIcon(div_icon_dce162c567204b0613e5325205eb23da);
+        
+    
+        var popup_a5b5c97f96da8f436b80b95630c48746 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_84602a7641d55d55595f7426f149ab49 = $(`<div id="html_84602a7641d55d55595f7426f149ab49" style="width: 100.0%; height: 100.0%;">Travel Time: 15.0 hours<br>Minimum Required: 2.0 hours</div>`)[0];
+                popup_a5b5c97f96da8f436b80b95630c48746.setContent(html_84602a7641d55d55595f7426f149ab49);
+            
+        
+
+        marker_bef359e3579b810ea74233e0529ec35c.bindPopup(popup_a5b5c97f96da8f436b80b95630c48746)
+        ;
+
+        
+    
+    
+            var poly_line_a01562377e47277ea5b991eef348a841 = L.polyline(
+                [[28.7041, 77.1025], [12.9716, 77.5946]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_75d92a79ae786f1f9a54d0dd6d48b3bb = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0bb83df8cb5887445554271843f1ba48 = $(`<div id="html_0bb83df8cb5887445554271843f1ba48" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Fast Travel Journey</b><br>From: Delhi<br>To: Bangalore<br>Departure: 2022-02-21 19:00<br>Arrival: 2022-02-22 10:00<br>Travel Time: 15.0 hours<br>Minimum Required Time: 2.5 hours</div>`)[0];
+                popup_75d92a79ae786f1f9a54d0dd6d48b3bb.setContent(html_0bb83df8cb5887445554271843f1ba48);
+            
+        
+
+        poly_line_a01562377e47277ea5b991eef348a841.bindPopup(popup_75d92a79ae786f1f9a54d0dd6d48b3bb)
+        ;
+
+        
+    
+    
+            var marker_53760a818d84645c6049c92f4a7b16ea = L.marker(
+                [20.83785, 77.34855],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_5023a46eaef6f98d9d80fecba3c4dc9f = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: blue;\"\u003e15.0h\u003c/div\u003e"});
+            marker_53760a818d84645c6049c92f4a7b16ea.setIcon(div_icon_5023a46eaef6f98d9d80fecba3c4dc9f);
+        
+    
+        var popup_9ebecfc3a6ca5ffde38101a58d7e0ac3 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_52726570754004e467ce08fbb5b80ec8 = $(`<div id="html_52726570754004e467ce08fbb5b80ec8" style="width: 100.0%; height: 100.0%;">Travel Time: 15.0 hours<br>Minimum Required: 2.5 hours</div>`)[0];
+                popup_9ebecfc3a6ca5ffde38101a58d7e0ac3.setContent(html_52726570754004e467ce08fbb5b80ec8);
+            
+        
+
+        marker_53760a818d84645c6049c92f4a7b16ea.bindPopup(popup_9ebecfc3a6ca5ffde38101a58d7e0ac3)
+        ;
+
+        
+    
+    
+            var poly_line_993715145324166cb1d769dbde30f793 = L.polyline(
+                [[12.9716, 77.5946], [15.2993, 74.124]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+        var popup_ce3740d6ffa38a3144bd3905f9c1c030 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_53274b2e48712806591968fed7975b85 = $(`<div id="html_53274b2e48712806591968fed7975b85" style="width: 100.0%; height: 100.0%;"><b>Rahul Sharma's Fast Travel Journey</b><br>From: Bangalore<br>To: Goa<br>Departure: 2022-02-22 19:00<br>Arrival: 2022-02-23 10:00<br>Travel Time: 15.0 hours<br>Minimum Required Time: 2.0 hours</div>`)[0];
+                popup_ce3740d6ffa38a3144bd3905f9c1c030.setContent(html_53274b2e48712806591968fed7975b85);
+            
+        
+
+        poly_line_993715145324166cb1d769dbde30f793.bindPopup(popup_ce3740d6ffa38a3144bd3905f9c1c030)
+        ;
+
+        
+    
+    
+            var marker_5e573768355a1c41fd626baa9e400cff = L.marker(
+                [14.13545, 75.85929999999999],
+                {}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+    
+            var div_icon_760e92c3905e10a3b889dfba82fab326 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color: blue;\"\u003e15.0h\u003c/div\u003e"});
+            marker_5e573768355a1c41fd626baa9e400cff.setIcon(div_icon_760e92c3905e10a3b889dfba82fab326);
+        
+    
+        var popup_4a60d93c27f3b176b76d658f36464340 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_71436c68a73bd98f7af993b574d5e0a0 = $(`<div id="html_71436c68a73bd98f7af993b574d5e0a0" style="width: 100.0%; height: 100.0%;">Travel Time: 15.0 hours<br>Minimum Required: 2.0 hours</div>`)[0];
+                popup_4a60d93c27f3b176b76d658f36464340.setContent(html_71436c68a73bd98f7af993b574d5e0a0);
+            
+        
+
+        marker_5e573768355a1c41fd626baa9e400cff.bindPopup(popup_4a60d93c27f3b176b76d658f36464340)
+        ;
+
+        
+    
+    
+            var layer_control_cc8d32a77c1e8d0d595b832fed9430e2 = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_884756c98341a4c3f99b2b69370c5db5,
+                },
+                overlays :  {
+                },
+            };
+            L.control.layers(
+                layer_control_cc8d32a77c1e8d0d595b832fed9430e2.base_layers,
+                layer_control_cc8d32a77c1e8d0d595b832fed9430e2.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_f98c58d89b62b99b95ed2553dd77f506);
+        
+</script>
+</html>
