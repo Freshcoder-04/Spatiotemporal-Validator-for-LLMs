@@ -12,7 +12,7 @@ from key import mykey
 
 client = OpenAI(api_key=mykey)
 
-# Load travel times from CSV
+
 def load_travel_times():
     try:
         df = pd.read_csv('min_travel_times.csv')
@@ -24,7 +24,7 @@ def load_travel_times():
         print(f"Error loading travel times: {e}")
         return {}
 
-# Popular Indian travel destinations with their coordinates
+
 places_data = {
     "Mumbai": {"lat": 19.0760, "lon": 72.8777},
     "Delhi": {"lat": 28.7041, "lon": 77.1025},
@@ -45,38 +45,38 @@ places_data = {
 
 places = list(places_data.keys())
 
-# Sample travelers with realistic names
+
 people = [
     "Rahul Sharma", "Priya Patel", "Amit Kumar", "Neha Gupta",
     "Vikram Singh", "Ananya Reddy", "Rohan Mehta", "Sneha Joshi",
     "Arjun Malhotra", "Ishaan Khanna"
 ]
 
-# Load minimum travel times
+
 min_travel_times = load_travel_times()
 
 def get_min_travel_time(from_place, to_place):
-    # Return minimum travel time if exists, else return a default value based on distance
+    
     if (from_place, to_place) in min_travel_times:
         return min_travel_times[(from_place, to_place)]
     elif (to_place, from_place) in min_travel_times:
         return min_travel_times[(to_place, from_place)]
     else:
-        # For unknown routes, estimate based on typical flight time between major cities
-        return 14400  # 4 hours as default for unknown routes
+        
+        return 14400  
 
 def validate_edge(time_A, time_B, place_A, place_B):
-    # Check if arrival time is after departure time
+    
     if time_A[1] > time_B[0]:
         return False
     
-    # Check if travel time meets minimum requirement
+    
     min_travel = get_min_travel_time(place_A, place_B)
     if time_B[0] - time_A[1] < min_travel:
         return False
     
     return True
-# Consider realistic travel times between cities.
+
 def generate_itinerary_with_llm(person, num_destinations=4):
     prompt1 = f"""Generate a travel itinerary for {person} visiting {num_destinations} destinations in India.
     Available destinations: {', '.join(places)}
@@ -121,7 +121,7 @@ def generate_itinerary_with_llm(person, num_destinations=4):
     """
     
     try:
-        # Generate itinerary with prompt1
+        
         response1 = client.chat.completions.create(
             model="gpt-4",
             messages=[
@@ -131,7 +131,7 @@ def generate_itinerary_with_llm(person, num_destinations=4):
             temperature=0.7
         )
         
-        # Generate itinerary with prompt2
+        
         response2 = client.chat.completions.create(
             model="gpt-4",
             messages=[
@@ -141,7 +141,7 @@ def generate_itinerary_with_llm(person, num_destinations=4):
             temperature=0.7
         )
         
-        # Process response1
+        
         content1 = response1.choices[0].message.content.strip()
         start_idx1 = content1.find('{')
         end_idx1 = content1.rfind('}') + 1
@@ -157,7 +157,7 @@ def generate_itinerary_with_llm(person, num_destinations=4):
             else:
                 itinerary1 = itinerary_json1["itinerary"]
         
-        # Process response2
+        
         content2 = response2.choices[0].message.content.strip()
         start_idx2 = content2.find('{')
         end_idx2 = content2.rfind('}') + 1
@@ -246,7 +246,7 @@ def generate_valid_journey(person, is_normal=True, max_attempts=3):
     for attempt in range(max_attempts):
         print(f"\n{itinerary_type.title()} Itinerary - Attempt {attempt + 1} of {max_attempts}")
         
-        # Generate appropriate itinerary based on type
+        
         if is_normal:
             itinerary, _ = generate_itinerary_with_llm(person)
         else:
@@ -268,7 +268,7 @@ def generate_valid_journey(person, is_normal=True, max_attempts=3):
             journey = journey_events
             break
             
-        # If invalid, generate a new prompt with inconsistency information
+        
         inconsistency_info = []
         for i in range(len(journey_events) - 1):
             place_A, time_A = journey_events[i]
@@ -286,7 +286,7 @@ def generate_valid_journey(person, is_normal=True, max_attempts=3):
             for info in inconsistency_info:
                 print(f"- {info}")
             
-            # Create a new prompt with inconsistency information
+            
             inconsistency_prompt = f"""Previous itinerary had the following inconsistencies:
 {chr(10).join(inconsistency_info)}
 Please removing these inconsistencies by taking into account the minimum travel time between the cities and return a valid and reasonable itinerary.
@@ -302,7 +302,7 @@ Please removing these inconsistencies by taking into account the minimum travel 
                     temperature=0.7
                 )
                 
-                # Process the response
+                
                 content = response.choices[0].message.content.strip()
                 start_idx = content.find('{')
                 end_idx = content.rfind('}') + 1
@@ -310,7 +310,7 @@ Please removing these inconsistencies by taking into account the minimum travel 
                     json_str = content[start_idx:end_idx]
                     itinerary_json = json.loads(json_str)
                     if "itinerary" in itinerary_json and isinstance(itinerary_json["itinerary"], list):
-                        # Use the new itinerary for the next attempt
+                        
                         itinerary = itinerary_json["itinerary"]
                         print(f"\nGenerated new {itinerary_type} itinerary with inconsistency feedback:")
                         for stop in itinerary:
@@ -353,21 +353,21 @@ def generate_random_journeys(people, places):
     G.add_nodes_from(places)
     
     for person in people:
-        # Random journey length between 3-6 places
+        
         journey_length = random.randint(3, 6)
         
-        # Select random places for the journey
+        
         journey_places = random.choices(places, k=journey_length)
         
-        # Generate events for each place
+        
         journey_events = []
         
-        # First event
+        
         first_event = generate_event(prev_end=None)
         journey_events.append((journey_places[0], first_event))
         prev_end = first_event[1]
         
-        # Generate events for remaining places
+        
         for i in range(1, journey_length):
             if random.random() < 0.4:
                 event_time = generate_event(prev_end, consistent=True)
@@ -376,10 +376,10 @@ def generate_random_journeys(people, places):
             journey_events.append((journey_places[i], event_time))
             prev_end = event_time[1]
         
-        # Store the journey
+        
         journeys_by_person[person] = journey_events
         
-        # Add edges to the graph
+        
         for i in range(len(journey_events) - 1):
             place_A, time_A = journey_events[i]
             place_B, time_B = journey_events[i+1]
@@ -397,38 +397,38 @@ def generate_event(prev_end=None, consistent=True):
     Returns:
         Tuple of (arrival_time, departure_time) as timestamps
     """
-    # Base time is either now or the previous event's end time
+    
     if prev_end is None:
         base_time = datetime.now()
     else:
         base_time = datetime.fromtimestamp(prev_end)
     
-    # Generate random arrival time
+    
     if prev_end is None:
-        # First event: random time within next 7 days
+        
         arrival_time = base_time + timedelta(days=random.randint(0, 7))
     else:
         if consistent:
-            # Consistent timing: add minimum travel time
-            arrival_time = base_time + timedelta(seconds=3600)  # 1 hour minimum
+            
+            arrival_time = base_time + timedelta(seconds=3600)  
         else:
-            # Inconsistent timing: random time between 0 and 1 hour
+            
             arrival_time = base_time + timedelta(seconds=random.randint(0, 3600))
     
-    # Generate random stay duration (1-3 days)
-    stay_duration = random.randint(24, 72) * 3600  # Convert to seconds
+    
+    stay_duration = random.randint(24, 72) * 3600  
     departure_time = arrival_time + timedelta(seconds=stay_duration)
     
-    # Convert to timestamps
+    
     return (int(arrival_time.timestamp()), int(departure_time.timestamp()))
 
 def main():
-    # 1. Handle Random Itineraries
+    
     print("\n=== RANDOM ITINERARIES ===")
     print("\nGenerating random itineraries for all people...")
     random_journeys_by_person, G_random = generate_random_journeys(people, places)
     
-    # Print random journeys
+    
     print("\n--- Random Journeys by Person ---")
     for person in sorted(random_journeys_by_person.keys()):
         journey = random_journeys_by_person[person]
@@ -437,7 +437,7 @@ def main():
         )
         print(f"{person}: {journey_str}")
     
-    # Validate random itineraries
+    
     inconsistencies_random, cycle_found_random = validate_graph(G_random)
     print("\n--- Validator Report for Random Itineraries ---")
     if inconsistencies_random:
@@ -453,7 +453,7 @@ def main():
             print(f"Arrival: {format_timestamp(time_B[0])}")
             print(f"Travel time: {travel_time/3600:.1f} hours (Minimum required: {min_required/3600:.1f} hours)")
             
-            # Print the full journey that contains this inconsistency
+            
             journey = random_journeys_by_person[data['person']]
             print("\nFull journey with inconsistency:")
             for place, (arrival, departure) in journey:
@@ -466,35 +466,35 @@ def main():
     else:
         print("\nNo cycle detected in the random itineraries graph.")
     
-    # Create map for random itineraries
+    
     print("\nCreating map visualization for random itineraries...")
     create_map_visualization(G_random, random_journeys_by_person, 'random_itineraries_map.html')
     
-    # 2. Handle Normal LLM Itinerary
+    
     print("\n\n=== NORMAL LLM ITINERARY ===")
     person = people[0]
     print(f"\nGenerating normal LLM itinerary for {person}...")
     journey_events1 = generate_valid_journey(person, is_normal=True)
     
     if journey_events1:
-        # Initialize graph for normal itinerary
+        
         G_normal = nx.MultiDiGraph()
         G_normal.add_nodes_from(places)
         
-        # Add edges to normal graph
+        
         for i in range(len(journey_events1) - 1):
             place_A, time_A = journey_events1[i]
             place_B, time_B = journey_events1[i + 1]
             G_normal.add_edge(place_A, place_B, person=person, time_A=time_A, time_B=time_B)
         
-        # Print normal LLM journey
+        
         print("\n--- Normal LLM Journey ---")
         journey_str1 = " -> ".join(
             [f"{place}({format_timestamp(time[0])}-{format_timestamp(time[1])})" for place, time in journey_events1]
         )
         print(f"{person}: {journey_str1}")
         
-        # Validate normal itinerary
+        
         inconsistencies_normal, cycle_found_normal = validate_graph(G_normal)
         print("\n--- Validator Report for Normal LLM Itinerary ---")
         if inconsistencies_normal:
@@ -510,7 +510,7 @@ def main():
                 print(f"Arrival: {format_timestamp(time_B[0])}")
                 print(f"Travel time: {travel_time/3600:.1f} hours (Minimum required: {min_required/3600:.1f} hours)")
                 
-                # Print the full journey that contains this inconsistency
+                
                 print("\nFull journey with inconsistency:")
                 for place, (arrival, departure) in journey_events1:
                     print(f"{place}: Arrive {format_timestamp(arrival)} - Depart {format_timestamp(departure)}")
@@ -522,34 +522,34 @@ def main():
         else:
             print("\nNo cycle detected in the normal itinerary graph.")
         
-        # Create map for normal itinerary
+        
         print("\nCreating map visualization for normal LLM itinerary...")
         create_map_visualization(G_normal, {person: (journey_events1, None)}, 'LLM_itineraries_travel_map1.html')
     
-    # 3. Handle Superfast LLM Itinerary
+    
     print("\n\n=== SUPERFAST LLM ITINERARY ===")
     print(f"\nGenerating superfast LLM itinerary for {person}...")
     journey_events2 = generate_valid_journey(person, is_normal=False)
     
     if journey_events2:
-        # Initialize graph for superfast itinerary
+        
         G_superfast = nx.MultiDiGraph()
         G_superfast.add_nodes_from(places)
         
-        # Add edges to superfast graph
+        
         for i in range(len(journey_events2) - 1):
             place_A, time_A = journey_events2[i]
             place_B, time_B = journey_events2[i + 1]
             G_superfast.add_edge(place_A, place_B, person=person, time_A=time_A, time_B=time_B)
         
-        # Print superfast LLM journey
+        
         print("\n--- Superfast LLM Journey ---")
         journey_str2 = " -> ".join(
             [f"{place}({format_timestamp(time[0])}-{format_timestamp(time[1])})" for place, time in journey_events2]
         )
         print(f"{person}: {journey_str2}")
         
-        # Validate superfast itinerary
+        
         inconsistencies_superfast, cycle_found_superfast = validate_graph(G_superfast)
         print("\n--- Validator Report for Superfast LLM Itinerary ---")
         if inconsistencies_superfast:
@@ -565,7 +565,7 @@ def main():
                 print(f"Arrival: {format_timestamp(time_B[0])}")
                 print(f"Travel time: {travel_time/3600:.1f} hours (Minimum required: {min_required/3600:.1f} hours)")
                 
-                # Print the full journey that contains this inconsistency
+                
                 print("\nFull journey with inconsistency:")
                 for place, (arrival, departure) in journey_events2:
                     print(f"{place}: Arrive {format_timestamp(arrival)} - Depart {format_timestamp(departure)}")
@@ -577,22 +577,22 @@ def main():
         else:
             print("\nNo cycle detected in the superfast itinerary graph.")
     
-    # Create map for superfast itinerary (even if invalid)
+    
     print("\nCreating map visualization for superfast LLM itinerary...")
     create_map_visualization(G_superfast if journey_events2 else nx.MultiDiGraph(), 
                            {person: (None, journey_events2)} if journey_events2 else {}, 
                            'LLM_itineraries_travel_map2.html')
 
 def create_map_visualization(G, journeys_by_person, output_file):
-    # Create a map centered on India
+    
     india_map = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
     
-    # Add markers for each city with time information
+    
     for place in places:
-        # Create a popup with all visits to this place
+        
         visits = []
         for person, journeys in journeys_by_person.items():
-            # Handle both tuple format (journey1, journey2) and single journey format
+            
             if isinstance(journeys, tuple):
                 journey1, journey2 = journeys
                 if journey1:
@@ -608,7 +608,7 @@ def create_map_visualization(G, journeys_by_person, output_file):
                                        f"Arrival: {format_timestamp(arrival)}<br>"
                                        f"Departure: {format_timestamp(departure)}")
             else:
-                # Single journey format (for random itineraries)
+                
                 for visit_place, (arrival, departure) in journeys:
                     if visit_place == place:
                         visits.append(f"{person}:<br>"
@@ -625,32 +625,32 @@ def create_map_visualization(G, journeys_by_person, output_file):
             icon=folium.Icon(color='blue', icon='info-sign')
         ).add_to(india_map)
     
-    # Add routes for each person's journey
+    
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'beige', 'darkblue', 'darkgreen']
     
     for i, (person, journeys) in enumerate(journeys_by_person.items()):
-        # Handle both tuple format (journey1, journey2) and single journey format
+        
         if isinstance(journeys, tuple):
             journey1, journey2 = journeys
             if journey1:
-                # Normal itinerary (solid lines)
+                
                 color = colors[i % len(colors)]
                 for j in range(len(journey1) - 1):
                     place_A, time_A = journey1[j]
                     place_B, time_B = journey1[j + 1]
                     
-                    # Get coordinates
+                    
                     start_coords = [places_data[place_A]["lat"], places_data[place_A]["lon"]]
                     end_coords = [places_data[place_B]["lat"], places_data[place_B]["lon"]]
                     
-                    # Calculate midpoint for label
+                    
                     mid_lat = (start_coords[0] + end_coords[0]) / 2
                     mid_lon = (start_coords[1] + end_coords[1]) / 2
                     
-                    # Get travel time in hours
+                    
                     travel_time = (time_B[0] - time_A[1]) / 3600
                     
-                    # Create the route line with popup
+                    
                     folium.PolyLine(
                         locations=[start_coords, end_coords],
                         color=color,
@@ -668,7 +668,7 @@ def create_map_visualization(G, journeys_by_person, output_file):
                         )
                     ).add_to(india_map)
                     
-                    # Add distance label at midpoint
+                    
                     folium.Marker(
                         location=[mid_lat, mid_lon],
                         icon=folium.DivIcon(
@@ -682,30 +682,30 @@ def create_map_visualization(G, journeys_by_person, output_file):
                     ).add_to(india_map)
             
             if journey2:
-                # Fast travel itinerary (dashed lines)
-                color = colors[(i + 1) % len(colors)]  # Use a different color
+                
+                color = colors[(i + 1) % len(colors)]  
                 for j in range(len(journey2) - 1):
                     place_A, time_A = journey2[j]
                     place_B, time_B = journey2[j + 1]
                     
-                    # Get coordinates
+                    
                     start_coords = [places_data[place_A]["lat"], places_data[place_A]["lon"]]
                     end_coords = [places_data[place_B]["lat"], places_data[place_B]["lon"]]
                     
-                    # Calculate midpoint for label
+                    
                     mid_lat = (start_coords[0] + end_coords[0]) / 2
                     mid_lon = (start_coords[1] + end_coords[1]) / 2
                     
-                    # Get travel time in hours
+                    
                     travel_time = (time_B[0] - time_A[1]) / 3600
                     
-                    # Create the route line with popup (dashed)
+                    
                     folium.PolyLine(
                         locations=[start_coords, end_coords],
                         color=color,
                         weight=2,
                         opacity=0.8,
-                        dash_array='5, 10',  # Make it dashed
+                        dash_array='5, 10',  
                         popup=folium.Popup(
                             f"<b>{person}'s Fast Travel Journey</b><br>"
                             f"From: {place_A}<br>"
@@ -718,7 +718,7 @@ def create_map_visualization(G, journeys_by_person, output_file):
                         )
                     ).add_to(india_map)
                     
-                    # Add distance label at midpoint
+                    
                     folium.Marker(
                         location=[mid_lat, mid_lon],
                         icon=folium.DivIcon(
@@ -731,24 +731,24 @@ def create_map_visualization(G, journeys_by_person, output_file):
                         )
                     ).add_to(india_map)
         else:
-            # Single journey format (for random itineraries)
+            
             color = colors[i % len(colors)]
             for j in range(len(journeys) - 1):
                 place_A, time_A = journeys[j]
                 place_B, time_B = journeys[j + 1]
                 
-                # Get coordinates
+                
                 start_coords = [places_data[place_A]["lat"], places_data[place_A]["lon"]]
                 end_coords = [places_data[place_B]["lat"], places_data[place_B]["lon"]]
                 
-                # Calculate midpoint for label
+                
                 mid_lat = (start_coords[0] + end_coords[0]) / 2
                 mid_lon = (start_coords[1] + end_coords[1]) / 2
                 
-                # Get travel time in hours
+                
                 travel_time = (time_B[0] - time_A[1]) / 3600
                 
-                # Create the route line with popup
+                
                 folium.PolyLine(
                     locations=[start_coords, end_coords],
                     color=color,
@@ -766,7 +766,7 @@ def create_map_visualization(G, journeys_by_person, output_file):
                     )
                 ).add_to(india_map)
                 
-                # Add distance label at midpoint
+                
                 folium.Marker(
                     location=[mid_lat, mid_lon],
                     icon=folium.DivIcon(
@@ -779,10 +779,10 @@ def create_map_visualization(G, journeys_by_person, output_file):
                     )
                 ).add_to(india_map)
     
-    # Add a layer control
+    
     folium.LayerControl().add_to(india_map)
     
-    # Add a legend
+    
     legend_html = '''
     <div style="position: fixed; 
                 bottom: 50px; right: 50px; width: 150px; height: 120px; 
@@ -796,7 +796,7 @@ def create_map_visualization(G, journeys_by_person, output_file):
     '''
     india_map.get_root().html.add_child(folium.Element(legend_html))
     
-    # Save the map to an HTML file
+    
     india_map.save(output_file)
     print(f"\nMap visualization has been saved as '{output_file}'")
     print("Open this file in a web browser to view the interactive map.")
